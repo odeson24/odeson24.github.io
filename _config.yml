@@ -8,8 +8,10 @@ subtitle: ''
 description: ''
 keywords:
 author: odeson24
-language: zh
-timezone: ''
+language:
+  - zh-tw
+  - en
+timezone: 'Asia/Taipei'
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://example.com/child' and root as '/child/'

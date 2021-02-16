@@ -7,13 +7,13 @@ tags:
 toc: true
 ---
 
-寫LeetCode過程中，學了不少的資料結構，binary indexed tree (Fenwick tree)的有趣度絕對排得上前三名。在看過它之前，我從來沒有想過可以用這樣的方式存取資料。
+寫LeetCode過程中，學了不少的資料結構，binary indexed tree (又稱Fenwick tree)的有趣度絕對排得上前三名。在看過它之前，我從來沒有想過可以用這樣的方式存取資料。
 
 和binary indexed tree相關的問題是求prefix sum：給定一個array `nums`，進行k次query，每次query給定一個index `i`，回傳`nums[0..i]`的和。
 
-看到這個問題，通常第一個想到的做法是每次query就直接計算總和，時間複雜度\`O(kN)\`，空間\`O(1)\`。想省時間的話，拿到`nums`就先把所有index的prefix sum算好存下，時間\`O(N + k)\`，空間\`O(N)\`。如果問題就只是這樣(i.e. `nums`是immutable)，那麼binary indexed tree還派不上用場。
+看到這個問題，通常第一個想到的做法是每次query就直接計算總和，時間複雜度\`O(kN)\`，空間\`O(1)\`。想省時間的話，拿到`nums`就先把所有index的prefix sum算好存下，時間\`O(N + k)\`，空間\`O(N)\`。如果問題就到這，那麼binary indexed tree還派不上用場。
 
-如果`nums`是mutable，每次update一個元素，進行l次update，以上述省時間的做法，每次update時間複雜度為\`O(N)\`，總共時間為\`O(N + lN + k)\`。
+如果`nums`是mutable，每次update一個元素，進行\`l\`次update，以上述省時間的做法，每次update時間複雜度為\`O(N)\`，總共時間為\`O(N + lN + k)\`。
 
 Binary indexed tree提供了另一個選擇，能將每次update時間複雜度降為O(logN)，代價是每次query時間上升為\`O(logN)\`。總時間複雜度為\`O(NlogN + llogN + klogN)\`，空間同樣是\`O(N)\`。適合在大量update的情境使用。
 
@@ -37,7 +37,7 @@ Binary indexed tree準備了一個array `t`，用來存放預先計算好的sum�
 = nums[11] + nums[9..10] + nums[1..8]
 
 仔細觀察會發現traversal path下個index是當前index拿掉最小的bit 1 (減去lowbit)：11 (0b1011) -> 10 (0b1010) -> 8 (0b1000)
-因為每次都會少掉一個bit 1，時間複雜度為O(logN)。
+因為每次都會少掉一個bit 1，時間複雜度為\`O(logN)\`。
 
 ### Update an element
 `nums[i]`如果有update，有影響的即為圖上所有有涵蓋到`nums[i]`的`t`的元素。例如

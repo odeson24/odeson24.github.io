@@ -3,13 +3,13 @@
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
     
-        gtag('config', 'G-6P0PQM81JS');</script><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">Back to Basics</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags">Tags</a></li><li class="is-active"><a href="#" aria-current="page">data structure</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2021-02-16T10:22:16.000Z" title="2/16/2021, 10:22:16 AM">2021-02-16</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-02-16T11:08:37.148Z" title="2/16/2021, 11:08:37 AM">2021-02-16</time></span><span class="level-item">6 分鐘 read (About 919 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/02/16/Binary-Indexed-Tree/">Binary Indexed Tree</a></h1><div class="content"><p>寫LeetCode過程中，學了不少的資料結構，binary indexed tree (Fenwick tree)的有趣度絕對排得上前三名。在看過它之前，我從來沒有想過可以用這樣的方式存取資料。</p>
+        gtag('config', 'G-6P0PQM81JS');</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script><!--!--><!--!--><meta name="generator" content="Hexo 5.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/">Back to Basics</a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><div class="card-content"><nav class="breadcrumb" aria-label="breadcrumbs"><ul><li><a href="/tags">Tags</a></li><li class="is-active"><a href="#" aria-current="page">data structure</a></li></ul></nav></div></div><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2021-02-16T10:22:16.000Z" title="2/16/2021, 10:22:16 AM">2021-02-16</time></span><span class="level-item">Updated&nbsp;<time dateTime="2021-02-16T11:31:20.671Z" title="2/16/2021, 11:31:20 AM">2021-02-16</time></span><span class="level-item">6 分鐘 read (About 919 words)</span></div></div><h1 class="title is-3 is-size-4-mobile"><a class="link-muted" href="/2021/02/16/Binary-Indexed-Tree/">Binary Indexed Tree</a></h1><div class="content"><p>寫LeetCode過程中，學了不少的資料結構，binary indexed tree (Fenwick tree)的有趣度絕對排得上前三名。在看過它之前，我從來沒有想過可以用這樣的方式存取資料。</p>
 <p>和binary indexed tree相關的問題是求prefix sum：給定一個array <code>nums</code>，進行k次query，每次query給定一個index <code>i</code>，回傳<code>nums[0..i]</code>的和。</p>
-<p>看到這個問題，通常第一個想到的做法是每次query就直接計算總和，時間複雜度O(kN)，空間O(1)。想省時間的話，拿到<code>nums</code>就先把所有index的prefix sum算好存下，時間O(N + k)，空間O(N)。如果問題就只是這樣(i.e. <code>nums</code>是immutable)，那麼binary indexed tree還派不上用場。</p>
-<p>如果<code>nums</code>是mutable，每次update一個元素，進行l次update，以上述省時間的做法，每次update時間複雜度為O(N)，總共時間為O(N + lN + k)。</p>
-<p>Binary indexed tree提供了另一個選擇，能將每次update時間複雜度降為O(logN)，代價是每次query時間上升為O(logN)。總時間複雜度為O(NlogN + llogN + klogN)，空間同樣是O(N)。適合在大量update的情境使用。</p>
+<p>看到這個問題，通常第一個想到的做法是每次query就直接計算總和，時間複雜度`O(kN)`，空間`O(1)`。想省時間的話，拿到<code>nums</code>就先把所有index的prefix sum算好存下，時間`O(N + k)`，空間`O(N)`。如果問題就只是這樣(i.e. <code>nums</code>是immutable)，那麼binary indexed tree還派不上用場。</p>
+<p>如果<code>nums</code>是mutable，每次update一個元素，進行l次update，以上述省時間的做法，每次update時間複雜度為`O(N)`，總共時間為`O(N + lN + k)`。</p>
+<p>Binary indexed tree提供了另一個選擇，能將每次update時間複雜度降為O(logN)，代價是每次query時間上升為`O(logN)`。總時間複雜度為`O(NlogN + llogN + klogN)`，空間同樣是`O(N)`。適合在大量update的情境使用。</p>
 <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>(以下為方便說明，令<code>nums</code>的index從1開始到N)</p>
-<p>Binary indexed tree準備了一個array <code>t</code>，用來存放預先計算好的sum。其中<code>t[i]</code>存放的sum不像直觀的做法是存<code>nums[1..i]</code>的sum，而是<code>nums[i - lowbit(i) + 1, i]</code>的sum，這樣的設計讓query和update可以在O(logN)完成。</p>
+<p>Binary indexed tree準備了一個array <code>t</code>，用來存放預先計算好的sum。其中<code>t[i]</code>存放的sum不像直觀的做法是存<code>nums[1..i]</code>的sum，而是<code>nums[i - lowbit(i) + 1, i]</code>的sum，這樣的設計讓query和update可以在`O(logN)`完成。</p>
 <p>以下方Fenwick原始論文中的圖來說明，每個長方形都有一個灰色部分，對應到一個index <code>i</code>，<code>t[i]</code>存放的值就是該長方形所涵蓋的所有elements的sum。例如，<code>t[12]</code>存<code>nums[9..12]</code>的sum，<code>t[11]</code>存<code>nums[11..11]</code>的sum。</p>
 <p><img src="https://i.imgur.com/zBx2aWc.png"><br>(source: <a target="_blank" rel="noopener" href="http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.14.8917&rep=rep1&type=pdf">A new data structure for cumulative frequency tables</a>)</p>
 <h3 id="lowbit-function"><a href="#lowbit-function" class="headerlink" title="lowbit function"></a>lowbit function</h3><p>上述lowbit function是用來計算某個數的最小的bit 1的值。<br>例如lowbit(12) = 4 (12 = 0xb1100，最小的bit 1為0xb0100 = 4)。</p>
@@ -67,6 +67,22 @@
                 }
                 $('.justified-gallery').justifiedGallery();
             }
-        });</script><!--!--><!--!--><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
+        });</script><!--!--><!--!--><script type="text/x-mathjax-config">MathJax.Hub.Config({
+            'HTML-CSS': {
+                matchFontHeight: false
+            },
+            SVG: {
+                matchFontHeight: false
+            },
+            CommonHTML: {
+                matchFontHeight: false
+            },
+            tex2jax: {
+                inlineMath: [
+                    ['$','$'],
+                    ['\\(','\\)']
+                ]
+            }
+        });</script><script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script><!--!--><!--!--><!--!--><script src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script src="/js/insight.js" defer></script><script>document.addEventListener('DOMContentLoaded', function () {
             loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
         });</script></body></html>

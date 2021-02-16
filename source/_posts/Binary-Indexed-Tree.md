@@ -11,16 +11,16 @@ toc: true
 
 和binary indexed tree相關的問題是求prefix sum：給定一個array `nums`，進行k次query，每次query給定一個index `i`，回傳`nums[0..i]`的和。
 
-看到這個問題，通常第一個想到的做法是每次query就直接計算總和，時間複雜度O(kN)，空間O(1)。想省時間的話，拿到`nums`就先把所有index的prefix sum算好存下，時間O(N + k)，空間O(N)。如果問題就只是這樣(i.e. `nums`是immutable)，那麼binary indexed tree還派不上用場。
+看到這個問題，通常第一個想到的做法是每次query就直接計算總和，時間複雜度\`O(kN)\`，空間\`O(1)\`。想省時間的話，拿到`nums`就先把所有index的prefix sum算好存下，時間\`O(N + k)\`，空間\`O(N)\`。如果問題就只是這樣(i.e. `nums`是immutable)，那麼binary indexed tree還派不上用場。
 
-如果`nums`是mutable，每次update一個元素，進行l次update，以上述省時間的做法，每次update時間複雜度為O(N)，總共時間為O(N + lN + k)。
+如果`nums`是mutable，每次update一個元素，進行l次update，以上述省時間的做法，每次update時間複雜度為\`O(N)\`，總共時間為\`O(N + lN + k)\`。
 
-Binary indexed tree提供了另一個選擇，能將每次update時間複雜度降為O(logN)，代價是每次query時間上升為O(logN)。總時間複雜度為O(NlogN + llogN + klogN)，空間同樣是O(N)。適合在大量update的情境使用。
+Binary indexed tree提供了另一個選擇，能將每次update時間複雜度降為O(logN)，代價是每次query時間上升為\`O(logN)\`。總時間複雜度為\`O(NlogN + llogN + klogN)\`，空間同樣是\`O(N)\`。適合在大量update的情境使用。
 
 ## 概念
 (以下為方便說明，令`nums`的index從1開始到N)
 
-Binary indexed tree準備了一個array `t`，用來存放預先計算好的sum。其中`t[i]`存放的sum不像直觀的做法是存`nums[1..i]`的sum，而是`nums[i - lowbit(i) + 1, i]`的sum，這樣的設計讓query和update可以在O(logN)完成。
+Binary indexed tree準備了一個array `t`，用來存放預先計算好的sum。其中`t[i]`存放的sum不像直觀的做法是存`nums[1..i]`的sum，而是`nums[i - lowbit(i) + 1, i]`的sum，這樣的設計讓query和update可以在\`O(logN)\`完成。
 
 以下方Fenwick原始論文中的圖來說明，每個長方形都有一個灰色部分，對應到一個index `i`，`t[i]`存放的值就是該長方形所涵蓋的所有elements的sum。例如，`t[12]`存`nums[9..12]`的sum，`t[11]`存`nums[11..11]`的sum。
 
